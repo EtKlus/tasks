@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
+</head>
+<body>
+<!-- Header -->
+<header th:fragment="header">
+    <nav class="navbar navbar-light bg-light shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand"><span class="text-danger">Get</span><span class="text-primary">Klus Tasks</span></a>
+
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}"><i class="bi-house-door text-secondary"></i> &nbsp;Accueil</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi-list-task text-secondary"></i>&nbsp;T&acirc;ches</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/task_created}"><i class="bi-list-task text-secondary"></i>&nbsp;T&acirc;ches cr&eacute;es</a></li>
+
+                        <li><a class="dropdown-item" th:href="@{/task_got}"><i class="bi-list-task text-secondary"></i>&nbsp;T&acirc;ches re&ccedil;ues</a></li>
+                        <hr>
+                        <li><a class="dropdown-item" th:href="@{/task_created}"><i class="bi-calendar2-week text-secondary"></i>&nbsp;Planification</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi-folder text-secondary"></i>&nbsp;Documents</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/document/{p}(p = 0)}"><i class="bi-folder-fill text-secondary"></i>&nbsp;Mes documents</a></li>
+                        <li><a class="dropdown-item" th:href="@{/star}"><i class="bi-star-fill text-warning"></i>&nbsp;Mes favoris</a></li>
+                        <hr>
+                        <li><a class="dropdown-item" th:href="@{/publics}"><i class="bi-people text-secondary"></i>&nbsp;Publics</a></li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/statistic}" sec:authorize="hasAuthority('ADMIN')"><i class="bi-graph-up text-secondary"></i>&nbsp;Statistiques</a>
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi-gear text-secondary"></i>&nbsp;Configuration</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/account}"><i class="bi-person text-secondary"></i>&nbsp;Mon compte</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" th:href="@{/parameter}" sec:authorize="hasAuthority('ADMIN')"><i class="bi-tools text-secondary"></i>&nbsp;R&eacute;glage</a></li>
+                        <li><a class="dropdown-item" th:href="@{/help}" ><i class="bi-question-circle text-secondary"></i>&nbsp;Aide</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+                <a class="btn"><i class="bi-person-circle text-primary"></i>
+                <span class="text-dark">Bonjour [[${#httpServletRequest.remoteUser}]] ! </span></a>
+                <button  type="submit" class="btn"><i class="bi-power text-primary"></i></button>
+            </form>
+        </div>
+    </nav>
+
+</header>
+
+<!-- Menu -->
+
+
+<!-- Footer -->
+<footer th:fragment="footer">
+    <p>&copy; 2020 getklus.com</p>
+</footer>
+</body>
+</html>

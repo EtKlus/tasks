@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Getklus</title>
+    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+</head>
+<body class="container-fluid bg-light">
+<div th:insert="fragments/components :: header"></div>
+<br>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/}">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Mon compte</li>
+    </ol>
+</nav>
+<br>
+<div th:if="${message}" class="alert alert-success" role="alert" th:text="${message}"></div>
+<br>
+<div class="row">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Mes informations</button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Modification des donn&eacute;es</button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <br>
+            <ul class="list-group mt-2">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-3"><span>Nom  : </span></div>
+                        <div class="col-md-9"><span th:text="${user.username}"></span></div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-3"><span>Mot de passe : </span></div>
+                        <div class="col-md-9"><span>************</span></div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-3"><span>Email : </span></div>
+                        <div class="col-md-9"><span th:text="${user.email}"></span></div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-3"><span>R&ocirc;le : </span></div>
+                        <div class="col-md-9">
+                            <span th:if="${user.authority == 'ADMIN'}">Administrateur</span>
+                            <span th:unless="${user.authority == 'ADMIN'}">Utilisateur</span>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <br>
+
+            <form action="#" th:action="@{/update/user/data}" method="post" th:object="${user}">
+
+                <input type="hidden" class="form-control" th:field="*{id}"  required>
+                <input type="hidden" class="form-control" th:field="*{password}"  required>
+                <input type="hidden" class="form-control" th:field="*{enable}"  required>
+                <input type="hidden" class="form-control" th:field="*{authority}"  required>
+                <div class="row">
+                    <div class="col-md-3"><label>Nom : </label></div>
+                    <div class="col-md-9"><input type="text" class="form-control" th:field="*{username}"  required></div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-3"><label>Email: </label></div>
+                    <div class="col-md-9">
+                        <input type="email" class="form-control" th:field="*{email}"  required>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary" th:href="@{/account}"><i class="bi-x-square"></i> &nbsp; Annuler</a>
+                    <button type="submit"  class="btn btn-primary"><i class="bi-save"></i> &nbsp; Enr&eacute;gistrer</button>
+                </div>
+            </form>
+            <br>
+            <hr>
+            <br>
+
+            <form action="#" th:action="@{/update/user/password}" method="post" th:object="${user}">
+
+                <input type="hidden" class="form-control" th:field="*{id}"  required>
+                <input type="hidden" class="form-control" th:field="*{email}"  required>
+                <input type="hidden" class="form-control" th:field="*{username}"  required>
+                <input type="hidden" class="form-control" th:field="*{authority}"  required>
+                <input type="hidden" class="form-control" th:field="*{enable}"  required>
+                <div class="row">
+                    <div class="col-md-3"><label>Mot de passe: </label></div>
+                    <div class="col-md-6">
+                        <input type="password" class="form-control" th:field="*{password}"  required>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit"  class="btn btn-primary"><i class="bi-save"></i> &nbsp; Enr&eacute;gistrer</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
